@@ -9,9 +9,13 @@ def clearBMPs():
             print(f"File {file} removed!")
 
 
+
 if __name__ == "__main__":
-    line = [(3, 2), (4, 2), (5, 3), (6, 3), (7, 4), (8, 4)]
+    testLine = [(3, 2), (4, 2), (5, 3), (6, 3), (7, 4), (8, 4), (0, 0)]
     clearBMPs()
     c = Canvas()
-    c.showImageWithPaint()
+    c.addObject(testLine)
+    c.saveToFile()
+    #c.showImage()
+    #c.showImageWithPaint()
     print("All done!")
