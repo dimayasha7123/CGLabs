@@ -9,15 +9,20 @@ def transformation(xy, shift):
     return x, y
 
 
+class Shape:
+    def __init__(self, dots, colour = "black"):
+        self.dots = dots
+        self.colour = colour
+
+
 class Canvas:
     def __init__(self):
         self.objects = []
         self.backgroundColour = "#FDF5E6"
         self.margin = 3
         self.axisColour = "#C5B6C6"
-        self.objColour = "#000000"
 
-    def addObject(self, obj):
+    def addObject(self, obj: Shape):
         self.objects.append(obj)
 
     def addObjectList(self, objList):
@@ -39,13 +44,13 @@ class Canvas:
             if file == "tmp.bmp":
                 os.remove(file)
 
-    def getSize(self):
+    def getSizeAndShift(self):
         left = 0
         right = 0
         up = 0
         down = 0
         for obj in self.objects:
-            for pixel in obj:
+            for pixel in obj.dots:
                 x = pixel[0]
                 y = pixel[1]
                 if x < left:
@@ -61,9 +66,8 @@ class Canvas:
         return (xSize, ySize), (- left + self.margin, up + self.margin)
 
     def getImage(self):
-        size, shift = self.getSize()
-        print(size, " ", shift)
-        img = Image.new(mode = "RGB", size = size, color = ImageColor.getrgb(self.backgroundColour))
+        size, shift = self.getSizeAndShift()
+        img = Image.new(mode="RGB", size=size, color=ImageColor.getrgb(self.backgroundColour))
 
         for i in range(0, size[0]):
             img.putpixel((i, shift[1]), ImageColor.getrgb(self.axisColour))
@@ -71,6 +75,7 @@ class Canvas:
             img.putpixel((shift[0], j), ImageColor.getrgb(self.axisColour))
 
         for obj in self.objects:
-            for pixel in obj:
-                img.putpixel(transformation(pixel, shift), ImageColor.getrgb(self.objColour))
+            colour = ImageColor.getrgb(obj.colour)
+            for pixel in obj.dots:
+                img.putpixel(transformation(pixel, shift), colour)
         return img
