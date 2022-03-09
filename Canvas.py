@@ -58,7 +58,7 @@ class Canvas:
                     up = y
         xSize = right - left + 1 + 2 * self.margin
         ySize = up - down + 1 + 2 * self.margin
-        return (xSize, ySize), (up + self.margin, -left + self.margin)
+        return (xSize, ySize), (- left + self.margin, up + self.margin)
 
     def getImage(self):
         size, shift = self.getSize()
