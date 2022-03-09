@@ -3,13 +3,9 @@ import os
 from PIL import Image, ImageColor
 
 
-def transformation(xy, size):
-    x = xy[0]
-    y = xy[1]
-    xSize = size[0]
-    ySize = size[1]
-    x = x + xSize // 2
-    y = y * (-1) + ySize // 2
+def transformation(xy, shift):
+    x = xy[0] + shift[0]
+    y = xy[1] * (-1) + shift[1]
     return x, y
 
 
@@ -17,7 +13,7 @@ class Canvas:
     def __init__(self):
         self.objects = []
         self.backgroundColour = "#FDF5E6"
-        self.margin = 10
+        self.margin = 3
         self.axisColour = "#C5B6C6"
         self.objColour = "#000000"
 
@@ -62,21 +58,19 @@ class Canvas:
                     up = y
         xSize = right - left + 1 + 2 * self.margin
         ySize = up - down + 1 + 2 * self.margin
-        return xSize, ySize
+        return (xSize, ySize), (up + self.margin, -left + self.margin)
 
     def getImage(self):
-        size = self.getSize()
+        size, shift = self.getSize()
+        print(size, " ", shift)
         img = Image.new(mode = "RGB", size = size, color = ImageColor.getrgb(self.backgroundColour))
 
-        xSize = size[0]
-        ySize = size[1]
-        for i in range(0, xSize):
-            img.putpixel((i, ySize // 2), ImageColor.getrgb(self.axisColour))
-        for j in range(0, ySize):
-            img.putpixel((xSize // 2, j), ImageColor.getrgb(self.axisColour))
-
+        for i in range(0, size[0]):
+            img.putpixel((i, shift[1]), ImageColor.getrgb(self.axisColour))
+        for j in range(0, size[1]):
+            img.putpixel((shift[0], j), ImageColor.getrgb(self.axisColour))
 
         for obj in self.objects:
             for pixel in obj:
-                img.putpixel(transformation(pixel, size), ImageColor.getrgb(self.objColour))
+                img.putpixel(transformation(pixel, shift), ImageColor.getrgb(self.objColour))
         return img

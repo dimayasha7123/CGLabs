@@ -1,5 +1,6 @@
 import os
 from Canvas import Canvas
+from CDA import CDA
 
 
 def clearBMPs():
@@ -9,12 +10,14 @@ def clearBMPs():
             print(f"File {file} removed!")
 
 
-
 if __name__ == "__main__":
-    testLine = [(3, 2), (4, 2), (5, 3), (6, 3), (7, 4), (8, 4), (0, 0)]
+    testLine = [(0, 0), (0, 10), (0, -10), (10, 0), (-10, 0), (10, 10), (-10, 10), (10, -10), (-10, -10)]
     clearBMPs()
     c = Canvas()
     c.addObject(testLine)
+    #line1 = CDA(-5, -48, 21, 13, "ceil")
+    #print(line1)
+    #c.addObject(line1)
     c.saveToFile()
     #c.showImage()
     #c.showImageWithPaint()
