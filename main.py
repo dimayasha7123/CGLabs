@@ -1,6 +1,7 @@
 import os
 from Canvas import Canvas, Shape
 from CDA import CDA
+from brezenhem import brezenhem
 
 
 def clearBMPs():
@@ -17,15 +18,20 @@ if __name__ == "__main__":
     c = Canvas()
     c.addObject(Shape(testLine, "Black"))
 
-    crds = (-5, 48, 21, 13)
+    crds = (-20, 48, 21, 13)
     shift = 5
     rounds = ["ceil", "floor", "int", "math"]
     colours = ["Black", "DimGray", "Gray", "DarkGray", "Silver"]
 
+    c.addObject(
+        Shape(brezenhem(0, 0, 12, -5),
+              colours[0])
+    )
+
     for i in range(0, 4):
         c.addObject(Shape(
-            CDA(crds[0] + shift * i, crds[1], crds[2] + shift * i, crds[3], rounds[i]),
-            colours[i])
+            CDA(crds[0] + shift * (i + 1), crds[1], crds[2] + shift * (i + 1), crds[3], rounds[i]),
+            colours[i + 1])
         )
 
 
