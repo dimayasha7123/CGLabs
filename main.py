@@ -1,6 +1,6 @@
 import os
 from canvas import canvas, shape
-from CDA import segment_CDA
+from segment_CDA import segment_CDA
 from segment_brezenhem import segment_brezenhem
 from circle_brezenhem import circle_brezenhem
 
