@@ -19,7 +19,7 @@ def rounder(roundType, num):
         return int(num)  # int
 
 
-def CDA(x1, y1, x2, y2, roundType="int"):
+def segment_CDA(x1, y1, x2, y2, roundType="int"):
     length = max(abs(x2 - x1), abs(y2 - y1))
     dx = (x2 - x1) / length
     dy = (y2 - y1) / length

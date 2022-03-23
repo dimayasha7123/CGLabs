@@ -1,7 +1,7 @@
 from helpful import sign
 
 
-def brezenhem(x1, y1, x2, y2):
+def segment_brezenhem(x1, y1, x2, y2):
     x = x1
     y = y1
     dx = abs(x2 - x1)

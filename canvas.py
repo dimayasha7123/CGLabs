@@ -9,20 +9,20 @@ def transformation(xy, shift):
     return x, y
 
 
-class Shape:
+class shape:
     def __init__(self, dots, colour = "black"):
         self.dots = dots
         self.colour = colour
 
 
-class Canvas:
+class canvas:
     def __init__(self):
         self.objects = []
         self.backgroundColour = "#FDF5E6"
         self.margin = 3
         self.axisColour = "#C5B6C6"
 
-    def addObject(self, obj: Shape):
+    def addObject(self, obj: shape):
         self.objects.append(obj)
 
     def addObjectList(self, objList):
