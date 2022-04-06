@@ -1,6 +1,7 @@
 import datetime
 import os
 from PIL import Image, ImageColor
+from helpful import picDirect
 
 
 def transformation(xy, shift):
@@ -29,10 +30,10 @@ class canvas:
         self.objects.extend(objList)
 
     def saveToFile(self, path="img"):
-        self.getImage().save(path +
+        self.getImage().save(picDirect + (path +
                              datetime.datetime.now().strftime("_%d.%m.%y_%H.%M.%S") +
                              ".bmp"
-                             if path == "img" else path)
+                             if path == "img" else path))
 
     def showImage(self):
         self.getImage().show()

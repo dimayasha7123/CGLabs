@@ -5,9 +5,8 @@ def circle_brezenhem(x0, y0, r):
     x = 0
     y = r
     delta = 2 * (1 - r)
-    limit = int(r / math.sqrt((2)))
     output = []
-    while y > limit:
+    while y > int(r / math.sqrt((2))):
         output.extend(
             (i + x0, j + y0) for i, j in [(x, y), (y, x), (-x, y), (-y, x), (x, -y), (y, -x), (-x, -y), (-y, -x)])
         if delta < 0 and 2 * delta + 2 * y - 1 <= 0:
