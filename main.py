@@ -64,15 +64,16 @@ def test_circle():
     c.addObject(shape(circle_brezenhem(0, 0, 5), getNextColour()))
     c.saveToFile("circles.png")
 
+
 if __name__ == "__main__":
     clearBMPs()
     c = canvas()
 
-    test_circle()
-    test_segment()
-    test_canvas()
+    # test_circle()
+    # test_segment()
+    # test_canvas()
 
-    c.addObject(shape(arc_brezenhem(0, 0, 50, 0, 30), getNextColour()))
+    c.addObject(shape(arc_brezenhem(0, 0, 50, 0, 90), getNextColour()))
 
     # angles = [0, 45, 90, 135, 180, 225, 270, 315, 360]
     # for i in range(0, len(angles)):
