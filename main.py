@@ -1,33 +1,10 @@
-import math
-import os
-
-from arc_brezenhem import arc_brezenhem
-from canvas import canvas, shape
-from segment_CDA import segment_CDA
-from segment_brezenhem import segment_brezenhem
-from circle_brezenhem import circle_brezenhem
-from helpful import picDirect
-
-
-def clearBMPs():
-    for file in os.listdir(picDirect):
-        if file.endswith(".bmp") or file.endswith(".png"):
-            os.remove(picDirect + file)
-            print(f"File {file} removed!")
-
-
-colourNames = ["Red", "Cyan", "Blue", "DarkBlue", "LightBlue",
-               "Purple", "Yellow", "Lime", "Magenta", "Silver",
-               "Gray", "Black", "Orange", "Brown", "Maroon",
-               "Green", "Olive"]
-colourIndex = 0
-
-
-def getNextColour():
-    global colourIndex
-    toReturn = colourNames[colourIndex]
-    colourIndex = 0 if colourIndex == len(colourNames) - 1 else colourIndex + 1
-    return toReturn
+from shapes.arc_brezenhem import arc_brezenhem
+from drawing.canvas import canvas, shape
+from shapes.segment_CDA import segment_CDA
+from shapes.segment_brezenhem import segment_brezenhem
+from shapes.circle_brezenhem import circle_brezenhem
+from drawing.colours import getNextColour
+from helpful import clearBMPs
 
 
 def test_canvas():
@@ -35,6 +12,7 @@ def test_canvas():
     testLine = [(0, 0), (0, 10), (0, -10), (10, 0), (-10, 0), (10, 10), (-10, 10), (10, -10), (-10, -10)]
     c.addObject(shape(testLine, getNextColour()))
     c.saveToFile("test.png")
+
 
 def test_segment():
     c = canvas()
@@ -65,23 +43,19 @@ def test_circle():
     c.saveToFile("circles.png")
 
 
+def test_arc_brezenhem():
+    c = canvas()
+    c.addObject(shape(arc_brezenhem(0, 0, 50, 30, 60), getNextColour()))
+    c.saveToFile("arc_brezenhem.png")
+
+
 if __name__ == "__main__":
     clearBMPs()
-    c = canvas()
+    can = canvas()
 
     # test_circle()
     # test_segment()
     # test_canvas()
+    # test_arc_brezenhem()
 
-    c.addObject(shape(arc_brezenhem(0, 0, 50, 0, 90), getNextColour()))
-
-    # angles = [0, 45, 90, 135, 180, 225, 270, 315, 360]
-    # for i in range(0, len(angles)):
-    #     for j in range(i + 1, len(angles)):
-    #         cf = canvas()
-    #         cf.addObject(shape(arc_brezenhem(0, 0, 100, angles[i], angles[j]), "red"))
-    #         cf.saveToFile(f'img_{angles[i]}_{angles[j]}.png')
-
-
-    c.saveToFile("img.bmp")
-    print("All done!")
+    can.saveToFile("img.bmp")
