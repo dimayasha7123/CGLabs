@@ -78,7 +78,7 @@ def test_scaling(dots):
     triag = NGon(dots)
     c.addObject(shape(triag.to_pixels(), getNextColour()))
 
-    triag.scaling_trans(4)
+    triag.local_scale(4)
     c.addObject(shape(triag.to_pixels(), getNextColour()))
     c.saveToFile("scaling.bmp")
 
@@ -104,10 +104,68 @@ def test_symmetry(dots):
     c.saveToFile("symmetry.bmp")
 
 
+def test_shift(dots):
+    c = canvas()
+
+    triag = NGon(dots)
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    triag = NGon(dots)
+    triag.shift_x(20)
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    triag = NGon(dots)
+    triag.shift_y(40)
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    triag = NGon(dots)
+    triag.shift(-20, -20)
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    c.saveToFile("shift.bmp")
+
+
+def test_rotation(dots):
+    c = canvas()
+
+    triag = NGon(dots)
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    triag = NGon(dots)
+    triag.rotation(-90)
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    triag = NGon(dots)
+    triag.rotation_around(-90, 40, 10)
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    c.saveToFile("rotation.bmp")
+
+
+def test_symmetry_diag(dots):
+    c = canvas()
+
+    triag = NGon(dots)
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    triag = NGon(dots)
+    triag.symmetry_main_diag()
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    triag = NGon(dots)
+    triag.symmetry_aux_diag()
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    c.saveToFile("symmetry_diag.bmp")
+
+
 def test_transformations():
     dots = [(2, 3), (8, 12), (18, 1)]
     test_scaling(dots)
     test_symmetry(dots)
+    test_shift(dots)
+    test_rotation(dots)
+    test_symmetry_diag(dots)
 
 
 def test_all():
