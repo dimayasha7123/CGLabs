@@ -72,16 +72,58 @@ def test_cutting():
     c.saveToFile("cutting.png")
 
 
+def test_scaling(dots):
+    c = canvas()
+
+    triag = NGon(dots)
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    triag.scaling_trans(4)
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+    c.saveToFile("scaling.bmp")
+
+
+def test_symmetry(dots):
+    c = canvas()
+
+    triag = NGon(dots)
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    triag = NGon(dots)
+    triag.symmetry_x()
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    triag = NGon(dots)
+    triag.symmetry_y()
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    triag = NGon(dots)
+    triag.symmetry()
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    c.saveToFile("symmetry.bmp")
+
+
+def test_transformations():
+    dots = [(2, 3), (8, 12), (18, 1)]
+    test_scaling(dots)
+    test_symmetry(dots)
+
+
 def test_all():
     test_circle()
     test_segment()
     test_canvas()
     test_arc_brezenhem()
     test_cutting()
+    test_transformations()
 
 
 if __name__ == "__main__":
     clearBMPs()
+
+    test_transformations()
+
     can = canvas()
 
     triag = NGon([(2, 3), (9, 12), (18, -3)])

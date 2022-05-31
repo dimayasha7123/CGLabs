@@ -4,24 +4,25 @@ import numpy as np
 
 class NGon:
     def __init__(self, dots):
-        self.matr = np.empty((len(dots), 2), dtype=int)
+        self.matr = np.empty((len(dots), 2))
         for i in range(len(dots)):
             self.matr[i][0] = dots[i][0]
             self.matr[i][1] = dots[i][1]
 
     def to_pixels(self):
+        matr = self.matr.astype(int)
         output = segment_brezenhem(
-            self.matr[0][0],
-            self.matr[0][1],
-            self.matr[len(self.matr) - 1][0],
-            self.matr[len(self.matr) - 1][1]
+            matr[0][0],
+            matr[0][1],
+            matr[len(matr) - 1][0],
+            matr[len(matr) - 1][1]
         )
-        for i in range(len(self.matr) - 1):
+        for i in range(len(matr) - 1):
             output.extend(segment_brezenhem(
-                self.matr[i][0],
-                self.matr[i][1],
-                self.matr[i + 1][0],
-                self.matr[i + 1][1]
+                matr[i][0],
+                matr[i][1],
+                matr[i + 1][0],
+                matr[i + 1][1]
             ))
         return output
 
@@ -44,7 +45,7 @@ class NGon:
         m = np.array([[1, 0], [0, -1]])
         self.abstacrt_trans(m)
 
-    # симметрию относительно OX
+    # симметрию относительно OY
     def symmetry_y(self):
         m = np.array([[-1, 0], [0, 1]])
         self.abstacrt_trans(m)
