@@ -1,4 +1,4 @@
-def sutherland(rectX1: int, rectY1: int, rectX2:int, rectY2: int, cutting: list) -> list:
+def sutherland(rectX1: int, rectY1: int, rectX2: int, rectY2: int, cutting: list) -> list:
     output = []
     for pixel in cutting:
         if rectX1 <= pixel[0] <= rectX2 and rectY1 <= pixel[1] <= rectY2:
@@ -6,7 +6,7 @@ def sutherland(rectX1: int, rectY1: int, rectX2:int, rectY2: int, cutting: list)
     return output
 
 
-#далее идет бесполезный код, похожий на правду, но я сдал то, что выше . . .
+# далее идет бесполезный код, похожий на правду, но я сдал то, что выше . . .
 def get_code(param, rect):
     pass
 

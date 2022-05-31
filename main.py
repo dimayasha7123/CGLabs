@@ -7,6 +7,7 @@ from shapes.rectangle import rectangle
 from drawing.colours import getNextColour
 from helpful import clearBMPs
 from cutting import sutherland
+from shapes.ngon import NGon
 
 
 def test_canvas():
@@ -83,6 +84,10 @@ if __name__ == "__main__":
     clearBMPs()
     can = canvas()
 
+    triag = NGon([(2, 3), (9, 12), (18, -3)])
+    can.addObject(shape(triag.to_pixels(), getNextColour()))
 
+    triag.symmetry()
+    can.addObject(shape(triag.to_pixels(), getNextColour()))
 
     can.saveToFile("img.bmp")
