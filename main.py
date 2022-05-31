@@ -5,7 +5,7 @@ from shapes.segment_brezenhem import segment_brezenhem
 from shapes.circle_brezenhem import circle_brezenhem
 from shapes.rectangle import rectangle
 from drawing.colours import getNextColour
-from helpful import clearBMPs
+from helpful import clearPNGs
 from cutting import sutherland
 from shapes.ngon import NGon
 
@@ -72,15 +72,28 @@ def test_cutting():
     c.saveToFile("cutting.png")
 
 
-def test_scaling(dots):
+def test_identical(dots):
     c = canvas()
 
     triag = NGon(dots)
     c.addObject(shape(triag.to_pixels(), getNextColour()))
 
-    triag.local_scale(4)
+    triag = NGon(dots)
+    triag.identical()
     c.addObject(shape(triag.to_pixels(), getNextColour()))
-    c.saveToFile("scaling.bmp")
+    c.saveToFile("identical.png")
+
+
+def test_local_scaling(dots):
+    c = canvas()
+
+    triag = NGon(dots)
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    triag = NGon(dots)
+    triag.local_scale(2, 5)
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+    c.saveToFile("local_scale.png")
 
 
 def test_symmetry(dots):
@@ -98,10 +111,10 @@ def test_symmetry(dots):
     c.addObject(shape(triag.to_pixels(), getNextColour()))
 
     triag = NGon(dots)
-    triag.symmetry()
+    triag.symmetry_o()
     c.addObject(shape(triag.to_pixels(), getNextColour()))
 
-    c.saveToFile("symmetry.bmp")
+    c.saveToFile("symmetry.png")
 
 
 def test_shift(dots):
@@ -111,18 +124,18 @@ def test_shift(dots):
     c.addObject(shape(triag.to_pixels(), getNextColour()))
 
     triag = NGon(dots)
-    triag.shift_x(20)
+    triag.shift_x(60)
     c.addObject(shape(triag.to_pixels(), getNextColour()))
 
     triag = NGon(dots)
-    triag.shift_y(40)
+    triag.shift_y(120)
     c.addObject(shape(triag.to_pixels(), getNextColour()))
 
     triag = NGon(dots)
-    triag.shift(-20, -20)
+    triag.shift(-60, -60)
     c.addObject(shape(triag.to_pixels(), getNextColour()))
 
-    c.saveToFile("shift.bmp")
+    c.saveToFile("shift.png")
 
 
 def test_rotation(dots):
@@ -136,10 +149,12 @@ def test_rotation(dots):
     c.addObject(shape(triag.to_pixels(), getNextColour()))
 
     triag = NGon(dots)
-    triag.rotation_around(-90, 40, 10)
+    dot = (100, -30)
+    triag.rotation_around(-90, dot[0], dot[1])
     c.addObject(shape(triag.to_pixels(), getNextColour()))
+    c.addObject(shape([dot], getNextColour()))
 
-    c.saveToFile("rotation.bmp")
+    c.saveToFile("rotation.png")
 
 
 def test_symmetry_diag(dots):
@@ -156,16 +171,60 @@ def test_symmetry_diag(dots):
     triag.symmetry_aux_diag()
     c.addObject(shape(triag.to_pixels(), getNextColour()))
 
-    c.saveToFile("symmetry_diag.bmp")
+    c.saveToFile("symmetry_diag.png")
 
+
+def test_common_scaling(dots):
+    c = canvas()
+
+    triag = NGon(dots)
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    triag = NGon(dots)
+    triag.common_scale(2)
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    c.saveToFile("common_scale.png")
+
+
+def test_symmetry_dot(dots):
+    c = canvas()
+
+    triag = NGon(dots)
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    triag = NGon(dots)
+    dot = (30, 40)
+    triag.symmetry_dot(dot[0], dot[1])
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+    c.addObject(shape([dot], getNextColour()))
+
+    c.saveToFile("symmetry_dot.png")
+
+
+def test_projection(dots):
+    c = canvas()
+
+    triag = NGon(dots)
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    triag = NGon(dots)
+    triag.projection(1/50, 1/24, 3)
+    c.addObject(shape(triag.to_pixels(), getNextColour()))
+
+    c.saveToFile("projection.png")
 
 def test_transformations():
-    dots = [(2, 3), (8, 12), (18, 1)]
-    test_scaling(dots)
+    dots = [(10, 15), (40, 60), (90, 5)]
+    test_identical(dots)
+    test_local_scaling(dots)
     test_symmetry(dots)
     test_shift(dots)
     test_rotation(dots)
     test_symmetry_diag(dots)
+    test_common_scaling(dots)
+    test_symmetry_dot(dots)
+    test_projection(dots)
 
 
 def test_all():
@@ -178,16 +237,10 @@ def test_all():
 
 
 if __name__ == "__main__":
-    clearBMPs()
+    clearPNGs()
 
-    test_transformations()
+    test_all()
+    # test_transformations()
 
     can = canvas()
 
-    triag = NGon([(2, 3), (9, 12), (18, -3)])
-    can.addObject(shape(triag.to_pixels(), getNextColour()))
-
-    triag.symmetry()
-    can.addObject(shape(triag.to_pixels(), getNextColour()))
-
-    can.saveToFile("img.bmp")

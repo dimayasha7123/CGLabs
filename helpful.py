@@ -8,7 +8,7 @@ def sign(x):
     return 0 if x == 0 else -1 if x < 0 else 1
 
 
-def clearBMPs():
+def clearPNGs():
     for file in os.listdir(picDirect):
         if file.endswith(".bmp") or file.endswith(".png"):
             os.remove(picDirect + file)
